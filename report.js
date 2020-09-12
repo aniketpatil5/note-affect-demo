@@ -16,17 +16,17 @@ setInterval(()=>{
 	  }
   }).done(function() {
 	  
-			  $.get("http://localhost:3001/getCapturedData", function(data, status){
-	  console.log('http://localhost:3001/getCapturedData called with status '+ status);
+			  $.get("http://localhost:3000/getCapturedData", function(data, status){
+			console.log('http://localhost:3000/getCapturedData called with status '+ status);
+			console.log('Data::' + data);
 	 eventList = data["events"];
 	 eventList.forEach(function(obj){ 
-			 var parsedObj = JSON.parse(obj);
 			$('#report-table-body')
 				.append( 
 					'<tr>' +
-						'<td>' + parsedObj["eventType"] + '</td>' +
-						'<td>' + parsedObj["dateTime"] + '</td>' +
-						'<td>' + parsedObj["path"] + '</td>' +
+						'<td>' + obj["eventType"] + '</td>' +
+						'<td>' + obj["dateTime"] + '</td>' +
+						'<td>' + obj["path"] + '</td>' +
 					'</tr>' );
 					
 					//to setup scroll to the bottom
@@ -43,6 +43,6 @@ setInterval(()=>{
 					document.getElementById("monitoring-status").innerHTML= 'OFF'
 	});
 	
-}, 1000);
+}, 2000);
  
 });
