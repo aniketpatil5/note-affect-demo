@@ -43,6 +43,6 @@ setInterval(()=>{
 					document.getElementById("monitoring-status").innerHTML= 'OFF'
 	});
 	
-}, 2000);
+}, 1000);
  
 });
