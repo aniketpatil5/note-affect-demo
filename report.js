@@ -24,11 +24,11 @@ setInterval(()=>{
 			$('#report-table-body')
 				.append( 
 					'<tr>' +
-						'<td>' + parsedObj["eventType"] + '</td>' +
-						'<td>' + parsedObj["eventMethod"] + '</td>' +
-						'<td>' + parsedObj["dateTime"] + '</td>' +
-						'<td>' + parsedObj["fileName"] + '</td>' +
-						'<td>' + parsedObj["path"] + '</td>' +
+						'<td>' + obj["eventType"] + '</td>' +
+						'<td>' + obj["eventMethod"] + '</td>' +
+						'<td>' + obj["dateTime"] + '</td>' +
+						'<td>' + obj["fileName"] + '</td>' +
+						'<td>' + obj["path"] + '</td>' +
 					'</tr>' );
 					
 					//to setup scroll to the bottom
