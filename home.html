@@ -16,7 +16,7 @@
                     <h1 align='center'>NoteAffect</h1>
                     <div class="col-md-12" align='center' style='background-color: beige;' >
                         <main>
-                            <a id = "myanchor" href="vrlocalapp://param?broserDetails='chrome'">Click Here to Open Security App.</a>
+                           <a id = "myanchor" href="javascript:invokeApp()">Click Here to Open Security App</a>
                         </main>
                     </div>
                 </span><br><br>
@@ -95,7 +95,7 @@
             document.addEventListener(visibilityChange, handleVisibilityChange, false);
         }
     })();
-
+	
     function notifyVisibilityChangeToNativeApp(flag){
         console.log("notifyVisibilityChangeToNativeApp");
         //constructPayload(flag);
@@ -166,4 +166,14 @@
         console.log("payload == " + JSON.stringify(payload));
         return payload;
     };
+	
+	function invokeApp(){
+		console.log("called invokeApp ");
+		var url = new URL("noteaffectsecapp://param");
+		url.searchParams.append('broserDetails', window.navigator.appVersion);
+		//console.log("document.getElementById('userName').value "+ document.getElementById('userName').value);
+		console.log("invokeApp URL "+url);
+		// window.location = "myapp://param?broserDetails='chrome'";
+		window.location = url;
+	}
 </script>
