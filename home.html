@@ -1,138 +1,169 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
-			<meta name="viewport" content="width=device-width, initial-scale=1.0">
-			<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <!-- jQuery library -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="report.js"></script>
+        <title>NoteAffect</title>
+    </head>
+    <body onload="notifyVisibilityChangeToNativeApp(true)">
+        <div class="container">                        
+            <div>
+                <span>
+                    <h1 align='center'>NoteAffect</h1>
+                    <div class="col-md-12" align='center' style='background-color: beige;' >
+                        <main>
+                            <a id = "myanchor" href="vrlocalapp://param?broserDetails='chrome'">Click Here to Open Security App.</a>
+                        </main>
+                    </div>
+                </span><br><br>
+                <div class="bg-warning border-left-0">
+                    <div class="col-md-6 " align = 'center'>
+                        <div>
+                            <b>User Activity Monitor : <b>
+                            <span id='monitoring-status' style="color:red;"> OFF</span>
+                        </div>	
+                    </div>
+                    <div class="col-md-6" align = 'center'>
+                        <div>
+                            <b>Electron Application Status : </b>
+                            <span id='alive-status' style="color:red;">OFF</span>
+                        </div>	
+                    </div>
+                </div><br><br>
 
-<!-- jQuery library -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="report.js"></script>
-							<title>NoteAffect</title>
-						</head>
-						<body onload="notifyVisibilityChangeToNativeApp('true')">
-							<div class="container">
-							
-   						  <div><span><h1 align='center'>NoteAffect</h1>
-						  <div class="col-md-12" align='center' style='background-color: beige;' >
-							<main>
-							<a id = "myanchor" href="vrlocalapp://param?broserDetails='chrome'">Click Here to Open Security App.</a>
-							</main>
-							</div>
-							</span>			
-		  
-						  
-							<br><br>
-							<div class="bg-warning border-left-0">
-							<div class="col-md-6 " align = 'center'>
-							<div>
-								<b>User Activity Monitor : <b>
-									<span id='monitoring-status' style="color:red;"> 
-									OFF										
-									</span>	
-							</div>	
-							</div>
-							<div class="col-md-6" align = 'center'>
-							<div>
-								<b>Electron Application Status : </b>
-									<span id='alive-status' style="color:red;"> 
-									OFF										
-									</span>	
-							</div>	
-							</div>
-							</div>
-							
-							<br>
-							<div><h3 align='center'>NoteAffect Monitoring Logs</h1></div><br>
-							<div class="table-responsive center-block" style="height:441px;background-color: ghostwhite;" align="center" id='report-table-div'>
-							<table class="table table-bordered table-bordered table-striped" id="report-table">
-								<thead style="background-color: lavender;">
-								  <tr>
-									<th>Event Type</th>
-									<th>Event Method</th>
-									<th>Date and Time</th>
-									<th>File Name</th>
-									<th>Path</th>	
-								  </tr>
-								</thead>
-								<tbody id="report-table-body">
-								</tbody>
-							  </table>
-							  </div>
-							  </div>
-														
-							
-	<script>
+                <div>
+                    <h3 align='center'>NoteAffect Monitoring Logs</h1>
+                </div><br>
+                <div class="table-responsive center-block" style="height:441px;background-color: ghostwhite;" align="center" id='report-table-div'>
+                    <table class="table table-bordered table-bordered table-striped" id="report-table">
+                        <thead style="background-color: lavender;">
+                            <tr>
+                                <th>Event Type</th>
+                                <th>Event Method</th>
+                                <th>Date and Time</th>
+                                <th>File Name</th>
+                                <th>Path</th>	
+                                <th>User</th>
+                                <th>Context Details</th>
+                            </tr>
+                        </thead>
+                        <tbody id="report-table-body"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>                        
+
+<script>
     (function() {
         'use strict';
         
         // Set the name of the "hidden" property and the change event for visibility
         var hidden, visibilityChange;
         if (typeof document.hidden !== "undefined") {
-          hidden = "hidden";
-          visibilityChange = "visibilitychange";
+            hidden = "hidden";
+            visibilityChange = "visibilitychange";
         } else if (typeof document.mozHidden !== "undefined") { // Firefox up to v17
-          hidden = "mozHidden";
-          visibilityChange = "mozvisibilitychange";
+            hidden = "mozHidden";
+            visibilityChange = "mozvisibilitychange";
         } else if (typeof document.webkitHidden !== "undefined") { // Chrome up to v32, Android up to v4.4, Blackberry up to v10
-          hidden = "webkitHidden";
-          visibilityChange = "webkitvisibilitychange";
+            hidden = "webkitHidden";
+            visibilityChange = "webkitvisibilitychange";
         }
-
 
         // If the page is hidden, pause the video;
         // if the page is shown, play the video
         function handleVisibilityChange() {
-          if (document[hidden]) {
-			notifyVisibilityChangeToNativeApp('false')
-          } else {
-		  notifyVisibilityChangeToNativeApp('true')
-          }
+            debugger;
+            if (document[hidden]) {
+                notifyVisibilityChangeToNativeApp(false)
+            } else {
+                notifyVisibilityChangeToNativeApp(true)
+            }
         }
-
-		
+        
         // Warn if the browser doesn't support addEventListener or the Page Visibility API
         if (typeof document.addEventListener === "undefined" || typeof document[hidden] === "undefined") {
-          alert("This demo requires a modern browser that supports the Page Visibility API.");
+            alert("This demo requires a modern browser that supports the Page Visibility API.");
         } else {
-          // Handle page visibility change   
-          document.addEventListener(visibilityChange, handleVisibilityChange, false);
-      
+            // Handle page visibility change   
+            document.addEventListener(visibilityChange, handleVisibilityChange, false);
         }
-
     })();
-	
-	function notifyVisibilityChangeToNativeApp(flag){		
-					
-					$.get("http://localhost:3000/setMonitorFlag?isMonitoring="+flag, function(data, status){
-	         			 console.log(data);	
-						document.getElementById("monitoring-status").style.color = 'green'
-						document.getElementById("monitoring-status").innerHTML= 'ON'
-		
-					}).fail(function() {
-		
-						document.getElementById("monitoring-status").style.color = 'red'
-						document.getElementById("monitoring-status").innerHTML= 'OFF'
-					});
-					
-				/*	var xhttp = new XMLHttpRequest();
-				  xhttp.onreadystatechange = function() {
-					//var monitorStatusObj = document.getElementById("monitoring-status");
-					if (this.readyState == 4 && this.status == 200) {
-					console.log(this.responseText);
-					document.getElementById("monitoring-status").style.color = 'green'
-					document.getElementById("monitoring-status").innerHTML= 'ON'
-					}else{
-					document.getElementById("monitoring-status").style.color = 'red'
-					document.getElementById("monitoring-status").innerHTML = 'OFF'
-					}
-				};
-				  xhttp.open("GET", "http://localhost:3000/setMonitorFlag?isMonitoring="+flag, true);
-				  xhttp.send();*/
-				
-		};
-    </script>
-									</body>
-								</html>
+
+    function notifyVisibilityChangeToNativeApp(flag){
+        console.log("notifyVisibilityChangeToNativeApp");
+        //constructPayload(flag);
+        // $.get("http://localhost:3000/setMonitorFlag?isMonitoring="+flag, function(data, status){
+        //     console.log(data);
+        //     document.getElementById("monitoring-status").style.color = 'green'
+        //     document.getElementById("monitoring-status").innerHTML= 'ON'
+
+        // }).fail(function() {
+        //     document.getElementById("monitoring-status").style.color = 'red'
+        //     document.getElementById("monitoring-status").innerHTML= 'OFF'
+        // });
+
+        $.ajax({
+            url: 'http://localhost:3000/setMonitorFlag',
+            type: 'post',
+            dataType: 'json',
+            contentType: 'application/json',
+            crossDomain: true,
+            success: function (data) {
+                console.log(data);	
+                document.getElementById("monitoring-status").style.color = 'green'
+                document.getElementById("monitoring-status").innerHTML= 'ON'
+            },
+            fail: function(data){
+                console.log("error while post request")
+                document.getElementById("monitoring-status").style.color = 'red'
+                document.getElementById("monitoring-status").innerHTML= 'OFF'
+            },
+            data: JSON.stringify(constructPayload(flag))
+        });
+                
+        /*	var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+            //var monitorStatusObj = document.getElementById("monitoring-status");
+            if (this.readyState == 4 && this.status == 200) {
+            console.log(this.responseText);
+            document.getElementById("monitoring-status").style.color = 'green'
+            document.getElementById("monitoring-status").innerHTML= 'ON'
+            }else{
+            document.getElementById("monitoring-status").style.color = 'red'
+            document.getElementById("monitoring-status").innerHTML = 'OFF'
+            }
+        };
+            xhttp.open("GET", "http://localhost:3000/setMonitorFlag?isMonitoring="+flag, true);
+            xhttp.send();*/
+    };
+
+    const tabIdentifier = Math.floor(Math.random() * (100000 - 1 + 1)) + 1;
+
+    function constructPayload(monitorFlag){
+        /*
+        {            
+            "isMonitoring":"true",
+            "id": "", //random number to be generated on load of the page. This is temporary and need identifier of the browser tab
+            "context":{
+                "userid":"abc123xyz",
+                "contextDet":"qwerty321"		
+            }
+        }
+        */
+        var payload = {};
+        payload.isMonitoring = monitorFlag;
+        payload.id = tabIdentifier;
+        payload.context = {};        
+        payload.context.userid = "userId"+tabIdentifier+"vr";
+        payload.context.contextDet = "contextDetails";
+        console.log("payload == " + JSON.stringify(payload));
+        return payload;
+    };
+</script>
