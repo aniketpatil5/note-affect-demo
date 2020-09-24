@@ -4,8 +4,7 @@ $(document).ready(function(){
 
     setInterval(()=>{
     
-     $.get("http://localhost:3000/isAlive", function(data, status){
-          console.log('is appAlive : ' + data);
+     $.get("http://localhost:3000/ping", function(data, status){
           if(data == true){
                         document.getElementById("alive-status").style.color = 'green'
                         document.getElementById("alive-status").innerHTML = "ON"  
