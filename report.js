@@ -28,7 +28,10 @@ $(document).ready(function(){
                             '<td>' + obj["fileName"] + '</td>' +
                             '<td>' + obj["path"] + '</td>' +
                             '<td>' + obj["userDet"] + '</td>' +
-                            '<td>' + obj["contextDet"] + '</td>' +
+                            '<td>' + 'seriesId : ' + obj.contextDet.seriesId +', ' 
+									+ 'lectureId : ' + obj.contextDet.lectureId +', '
+									+ 'slide : ' + obj.contextDet.slide +
+									'</td>' +
                         '</tr>' );
                         
                         //to setup scroll to the bottom

@@ -162,7 +162,11 @@
         payload.id = tabIdentifier;
         payload.context = {};        
         payload.context.userid = "userId"+tabIdentifier+"vr";
-        payload.context.contextDet = "contextDetails";
+        payload.context.contextDet = 
+								{"seriesId"  : 10,
+								 "lectureId" : 2,
+								 "slide"     : 3}
+		;
         console.log("payload == " + JSON.stringify(payload));
         return payload;
     };
