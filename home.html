@@ -182,7 +182,7 @@
 	function invokeApp(){
 		console.log("called invokeApp ");
 		var url = new URL("noteaffectsecapp://");
-		url.searchParams.append("allowed-domain", window.location.origin);
+		url.searchParams.append("allowed-domain", window.location.origin+'');
 		//console.log("document.getElementById('userName').value "+ document.getElementById('userName').value);
 		console.log("invokeApp URL "+url);
 		// window.location = "myapp://param?broserDetails='chrome'";
