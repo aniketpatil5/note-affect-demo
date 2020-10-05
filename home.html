@@ -182,7 +182,7 @@
 	function invokeApp(){
 		console.log("called invokeApp ");
 		var url = new URL("noteaffectsecapp://");
-		url.searchParams.append("allowed-domain", window.location.hostname);
+		url.searchParams.append("allowed-domain", window.location.origin);
 		//console.log("document.getElementById('userName').value "+ document.getElementById('userName').value);
 		console.log("invokeApp URL "+url);
 		// window.location = "myapp://param?broserDetails='chrome'";
@@ -193,7 +193,7 @@
 	
 	   $.ajax({
             url: 'http://localhost:3000/shutdown',
-            type: 'GET',
+            type: 'POST',
             crossDomain: true,
             success: function (data) {
                 console.log("The security application has been shutdown.");	
