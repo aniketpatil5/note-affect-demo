@@ -155,26 +155,33 @@
     const tabIdentifier = Math.floor(Math.random() * (100000 - 1 + 1)) + 1;
 
     function constructPayload(monitorFlag){
-        /*
-        {            
-            "isMonitoring":"true",
-            "id": "", //random number to be generated on load of the page. This is temporary and need identifier of the browser tab
-            "context":{
-                "userid":"abc123xyz",
-                "contextDet":"qwerty321"		
-            }
-        }
-        */
         var payload = {};
         payload.isMonitoring = monitorFlag;
         payload.id = tabIdentifier;
         payload.context = {};        
         payload.context.userid = "userId"+tabIdentifier+"vr";
-        payload.context.contextDet = 
-								{"seriesId"  : 10,
-								 "lectureId" : 2,
-								 "slide"     : 3}
-		;
+        /*
+            To simulate the diff of Slide & userFile contexts, below if else block is present
+            In real case, this comes from the website so the if else block is not required
+        */
+        if (tabIdentifier % 2 == 0){
+            payload.context.contextDet = {
+                "seriesId"  : 10,
+                "resourceType": "Slide",
+                "item": {
+                    "lectureId" : 2,
+                    "slide"     : 3
+                }
+            }
+        }else{        
+            payload.context.contextDet = {
+                "seriesId"  : 10,
+                "resourceType": "UserFile",
+                "item": {
+                    "userFileId" : 1
+                }
+            }
+        }
         console.log("payload == " + JSON.stringify(payload));
         return payload;
     };
