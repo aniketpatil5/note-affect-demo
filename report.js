@@ -1,5 +1,10 @@
 $(document).ready(function(){
     debugger;
+    try{
+        fetchJwtToken();
+    }catch(error){
+        console.log("");
+    }
     //button for get call
     let isAppInvoked = 0;
     setInterval(()=>{    
