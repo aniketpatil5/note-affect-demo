@@ -210,4 +210,36 @@
             }
         })
 	}
+	
+	function fetchJwtToken(){
+		console.log("******* fetchJwtToken *******")
+		jsonObject = JSON.stringify({
+		    "Email": "clawson+security@unicon.net",
+		    "Password": "^EWT8UI1NFHqQVsU7fs@"
+		});
+		
+		$.ajax({
+		    url: 'https://develop.noteaffect.com/api/auth/token',
+		    type: 'POST',
+		    dataType: 'json',
+		    contentType: 'application/json',
+		    headers: {
+			"accept": "application/json",
+			"Access-Control-Allow-Origin":"*"
+		    },
+		    crossOrigin: true,
+		    success: function (data) {
+			console.log("Token details " + data);
+			JWTToken = data.token;
+			console.log("Token " + JWTToken);
+		    },
+		    fail: function(data){
+			console.log("Token details:: error while post request " + data);
+		    },
+		    data: jsonObject
+		});
+
+		// JWTToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIxODYiLCJ1bmlxdWVfbmFtZSI6ImNsYXdzb24rc2VjdXJpdHlAdW5pY29uLm5ldCIsIkFzcE5ldC5JZGVudGl0eS5TZWN1cml0eVN0YW1wIjoiQkhTNEtJUVZMWkVOQUtXSlVQS1k2STVITlEzVkdaRUYiLCJuYmYiOjE2MDIwNTgwNjcsImV4cCI6MTYwMjEyMjg2NywiaWF0IjoxNjAyMDU4MDY3LCJpc3MiOiJub3RlYWZmZWN0LmNvbSIsImF1ZCI6Im5vdGVhZmZlY3QuY29tIn0.rVNY5XCB1CohmVHg6K0Hf7MxUH6e8YlHKAeBXUArEuU'
+		console.log("******* leaving fetchJwtToken *******");
+    	}
 </script>
