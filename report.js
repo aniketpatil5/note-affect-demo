@@ -36,9 +36,10 @@ $(document).ready(function(){
                             '<td>' + obj["fileName"] + '</td>' +
                             '<td>' + obj["path"] + '</td>' +
                             '<td>' + obj["userDet"] + '</td>' +
-                            '<td>' + 'seriesId : ' + obj.contextDet.seriesId +', ' 
-                                    + 'lectureId : ' + obj.contextDet.lectureId +', '
-                                    + 'slide : ' + obj.contextDet.slide +
+                            '<td>' + 'seriesId : '     + obj.contextDet.seriesId +', ' 
+							       + 'resourceType : ' + obj.contextDet.resourceType +', '
+                                   + 'lectureId : '    + obj.contextDet.item.lectureId +', '
+                                   + 'slide : '        + obj.contextDet.item.slide +
                                     '</td>' +
 						    '<td>' + obj["detail"] + '</td>' +
                         '</tr>' );                    
