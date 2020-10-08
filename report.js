@@ -32,7 +32,7 @@ $(document).ready(function(){
                         '<tr>' +
                             '<td>' + obj["eventType"] + '</td>' +
                             '<td>' + obj["eventMethod"] + '</td>' +
-                            '<td>' + obj["dateTime"] + '</td>' +
+                            '<td>' + obj["eventDate"] + '</td>' +
                             '<td>' + obj["fileName"] + '</td>' +
                             '<td>' + obj["path"] + '</td>' +
                             '<td>' + obj["userDet"] + '</td>' +
