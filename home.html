@@ -14,13 +14,17 @@
             <div>
                 <span>
                     <h1 align='center'>NoteAffect</h1>
-                    <div class="col-md-6" align='left' >
+                    <div class="col-md-4 "style="margin-top: -7px;">
+					<input class="form-control" type="text" id="JWTTokenInput" name="inputName" placeholder="JWT Token goes here..." value="" highlighted/>
+					</div>
+                   
+					<div class="col-md-4 " align="center" >
                         <main>
                            <a id = "myanchor" href="javascript:invokeApp()">
 									<span style="color: forestgreen;font-weight: 600;border-style: outset;background-color: lavender;padding: 5px;">Launch Security App</span></a>
                         </main>
-                    </div>
-					<div class="col-md-6" align='right' >
+						</div>
+					<div class="col-md-4" style="width: unset;float: right;" align='right' >
                         <main >
                            <a id = "myanchor2" href="javascript:shutdownApp()" ><span style="color: tomato;font-weight: 600;border-style: outset;background-color: lavender;padding: 5px;">Shutdown Security App</span></a>
                         </main>
@@ -188,13 +192,20 @@
     };
 	
 	function invokeApp(){
+	var JWTToken = document.getElementById("JWTTokenInput").value.trim();
+	console.log('Token :: '  + JWTToken.length)
+	if(JWTToken.length == 0){
+			alert("Please Enter Valid JWT Token");
+	}else{
 		console.log("called invokeApp ");
 		var url = new URL("nasecapp://");
 		url.searchParams.append("allowed-domain", window.location.origin+'');
-		//console.log("document.getElementById('userName').value "+ document.getElementById('userName').value);
-		console.log("invokeApp URL "+url);
-		// window.location = "myapp://param?broserDetails='chrome'";
-		window.location = url;
+		url.searchParams.append("token", JWTToken);
+		url.searchParams.append("series", '57');
+		url.searchParams.append("install", 'develop');
+		url.searchParams.append("clientVersion", '1.0');
+		console.log("invokeApp URL "+ url);
+		}
 	}
 	
 	function shutdownApp(){
