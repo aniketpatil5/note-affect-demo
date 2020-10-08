@@ -1,10 +1,10 @@
 $(document).ready(function(){
     debugger;
-    try{
-        fetchJwtToken();
-    }catch(error){
-        console.log("");
-    }
+	try{
+		fetchJwtToken();
+	}catch(error){
+		console.log(error);
+	}
     //button for get call
     let isAppInvoked = 0;
     setInterval(()=>{    
@@ -40,6 +40,7 @@ $(document).ready(function(){
                                     + 'lectureId : ' + obj.contextDet.lectureId +', '
                                     + 'slide : ' + obj.contextDet.slide +
                                     '</td>' +
+						    '<td>' + obj["detail"] + '</td>' +
                         '</tr>' );                    
                         //to setup scroll to the bottom
                         var objDiv = document.getElementById("report-table-div");
