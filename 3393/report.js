@@ -8,8 +8,18 @@ $(document).ready(function(){
     let isAppInvoked = 0;
     setInterval(()=>{    
         $.get("http://localhost:3393/ping", function(data, status){
-			
+						
 			console.log('Ping response : ' + JSON.stringify(data));
+			
+			if(data.isError = true){
+				data.isError.errors.forEach((error) => {
+					alert( "Error Occured : " +
+            			+'	    Error Code : ' + error.errorCode
+						+'      Error Desc : ' + error.errorDesc)
+				})
+				
+				shutdownApp();
+			}
 				
                 document.getElementById("alive-status").style.color = 'green'
                 document.getElementById("alive-status").innerHTML = "ON"  
