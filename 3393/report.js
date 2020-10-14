@@ -8,16 +8,16 @@ $(document).ready(function(){
     let isAppInvoked = 0;
     setInterval(()=>{    
         $.get("http://localhost:3393/ping", function(data, status){
-						
+			data = JSON.parse(data);				
 			console.log('Ping response : ' + JSON.stringify(data));
-			
 			if(data.isError = true){
-				data.isError.errors.forEach((error) => {
-					alert( "Error Occured : " +
-            			+'	    Error Code : ' + error.errorCode
-						+'      Error Desc : ' + error.errorDesc)
+				var arr = data.errors;
+				arr.forEach(function(error){
+					alert( 'Error Occured : ' 
+            			+'\n	    Error Code : ' + error.errorCode
+						+'\n      Error Desc : ' + error.errorDesc );
 				})
-				
+
 				shutdownApp();
 			}
 				
