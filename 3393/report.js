@@ -6,6 +6,7 @@ $(document).ready(function(){
 	}
     //button for get call
     let isAppInvoked = 0;
+    let isErrorShown = false;
     setInterval(()=>{    
         $.get("http://localhost:3393/ping", function(data, status){
 			data = JSON.parse(data);				
@@ -13,13 +14,18 @@ $(document).ready(function(){
 			if(data.isError = true){
 				var arr = data.errors;
 				arr.forEach(function(error){
+					if(isErrorShown == false){
 					alert( 'Error Occured : ' 
             			+'\n	    Error Code : ' + error.errorCode
 						+'\n      Error Desc : ' + error.errorDesc );
+					}
 				})
 
-				if(arr.length > 0)
+				if(arr.length > 0){
+				isErrorShown = true;	
 				shutdownApp();
+				}
+				
 			}
 				
                 document.getElementById("alive-status").style.color = 'green'
