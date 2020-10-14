@@ -18,7 +18,7 @@ $(document).ready(function(){
 						+'\n      Error Desc : ' + error.errorDesc );
 				})
 
-				shutdownApp();
+				//shutdownApp();
 			}
 				
                 document.getElementById("alive-status").style.color = 'green'
