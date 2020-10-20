@@ -28,7 +28,7 @@ $(document).ready(function(){
 			}
 		   
 		if(data.isViolation == true){
-		   alert('We have detected suspicious content sharing/copying activity on your machine');
+		   alert('User policy violation detected on your machine');
 		   }	
 				
                 document.getElementById("alive-status").style.color = 'green'
