@@ -24,9 +24,12 @@ $(document).ready(function(){
 				if(arr.length > 0){
 				isErrorShown = true;	
 				shutdownApp();
-				}
-				
+				}				
 			}
+		   
+		if(data.isViolation == true){
+		   alert('We have detected suspicious content sharing/copying activity on your machine');
+		   }	
 				
                 document.getElementById("alive-status").style.color = 'green'
                 document.getElementById("alive-status").innerHTML = "ON"  
