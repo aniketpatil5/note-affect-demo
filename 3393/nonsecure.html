@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <!-- jQuery library -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <title>NoteAffect</title>
+    </head>
+    <body onload="notifyVisibilityChangeToNativeApp(false)">
+        <div class="container">                        
+            <div>
+                <span>
+                    <h1 align='center'>Page to simulate non-secure content.</h1>
+                </span><br> 
+            </div>
+        </div>
+    </body>
+</html>                        
+
+<script>
+    (function() {
+        'use strict';
+        
+        // Set the name of the "hidden" property and the change event for visibility
+        var hidden, visibilityChange;
+        if (typeof document.hidden !== "undefined") {
+            hidden = "hidden";
+            visibilityChange = "visibilitychange";
+        } else if (typeof document.mozHidden !== "undefined") { // Firefox up to v17
+            hidden = "mozHidden";
+            visibilityChange = "mozvisibilitychange";
+        } else if (typeof document.webkitHidden !== "undefined") { // Chrome up to v32, Android up to v4.4, Blackberry up to v10
+            hidden = "webkitHidden";
+            visibilityChange = "webkitvisibilitychange";
+        }
+
+        // If the page is hidden, pause the video;
+        // if the page is shown, play the video
+        function handleVisibilityChange() {
+            if (document[hidden]) {
+                notifyVisibilityChangeToNativeApp(false)
+            } else {
+                notifyVisibilityChangeToNativeApp(false)
+            }
+        }
+        
+        // Warn if the browser doesn't support addEventListener or the Page Visibility API
+        if (typeof document.addEventListener === "undefined" || typeof document[hidden] === "undefined") {
+            alert("This demo requires a modern browser that supports the Page Visibility API.");
+        } else {
+            // Handle page visibility change   
+            document.addEventListener(visibilityChange, handleVisibilityChange, false);
+        }
+    })();
+    
+    function notifyVisibilityChangeToNativeApp(flag){
+        console.log("notifyVisibilityChangeToNativeApp");
+        $.ajax({
+            url: 'http://localhost:3393/setMonitoring',
+            type: 'POST',
+            dataType: 'json',
+            contentType : 'application/json',
+            crossDomain: true,
+            success: function (data) {
+                console.log(data);  
+                          },
+            fail: function(data){
+                console.log("error while post request " + data)
+          
+            },
+            data: JSON.stringify(constructPayload(flag))
+        });
+    
+    };
+
+     const tabIdentifier = Math.floor(Math.random() * (100000 - 1 + 1)) + 1;
+
+    function constructPayload(monitorFlag){
+        var payload = {};
+        payload.isMonitoring = monitorFlag;
+        payload.id = tabIdentifier + '-aff1234-ac987';
+        payload.context = {};        
+        payload.context.userid = "userId"+tabIdentifier+"vr";
+        /*
+            To simulate the diff of Slide & userFile contexts, below if else block is present
+            In real case, this comes from the website so the if else block is not required
+        */
+        if (tabIdentifier % 2 == 0){
+            payload.context.contextDet = {
+                "seriesId"  : 7,
+                "resourceType": "Slide",
+                "item": {
+                    "lectureId" : 2,
+                    "slide"     : 3
+                }
+            }
+        }else{        
+            payload.context.contextDet = {
+                "seriesId"  : 7,
+                "resourceType": "UserFile",
+                "item": {
+                    "userFileId" : 1
+                }
+            }
+        }
+        console.log("payload == " + JSON.stringify(payload));
+        return payload;
+    };
+    
+  
+</script>
