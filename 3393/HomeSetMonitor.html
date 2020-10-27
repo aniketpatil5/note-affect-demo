@@ -156,11 +156,11 @@
             xhttp.send();*/
     };
 
-    // const tabIdentifier = Math.floor(Math.random() * (100000 - 1 + 1)) + 1;
+    const tabIdentifier = Math.floor(Math.random() * (100000 - 1 + 1)) + 1;
 
     function constructPayload(monitorFlag){
         var payload = {};
-        var tabIdentifier = Math.floor(Math.random() * (100000 - 1 + 1)) + 1;
+//         var tabIdentifier = Math.floor(Math.random() * (100000 - 1 + 1)) + 1;
         payload.isMonitoring = monitorFlag;
         payload.id = tabIdentifier + '-aff1234-ac987';
         payload.context = {};        
