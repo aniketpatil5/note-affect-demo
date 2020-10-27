@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <!-- jQuery library -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="report.js"></script>
+        <title>NoteAffect</title>
+    </head>
+    <body onload="callToSetMonitor()">
+        <div class="container">                        
+            <div>
+                <span>
+                    <h1 align='center'>NoteAffect</h1>
+                    <div class="col-md-4 "style="margin-top: -7px;">
+					<input class="form-control" type="text" id="JWTTokenInput" name="inputName" placeholder="JWT Token goes here..." value="" highlighted/>
+					</div>
+                   
+					<div class="col-md-4 " align="center" >
+                        <main>
+                           <a id = "myanchor" href="javascript:invokeApp()">
+									<span style="color: forestgreen;font-weight: 600;border-style: outset;background-color: lavender;padding: 5px;">Launch Security App</span></a>
+                        </main>
+						</div>
+					<div class="col-md-4" style="width: unset;float: right;" align='right' >
+                        <main >
+                           <a id = "myanchor2" href="javascript:shutdownApp()" ><span style="color: tomato;font-weight: 600;border-style: outset;background-color: lavender;padding: 5px;">Shutdown Security App</span></a>
+                        </main>
+                    </div>
+					
+                </span><br>	
+				<hr style="height:2px;border-width:0;color:gray;background-color:gray">
+                <div class="bg-warning border-left-0">
+                    <div class="col-md-6 " align = 'center'>
+                        <div>
+                            <b>User Activity Monitor : <b>
+                            <span id='monitoring-status' style="color:red;"> OFF</span>
+                        </div>	
+                    </div>
+                    <div class="col-md-6" align = 'center'>
+                        <div>
+                            <b>Electron Application Status : </b>
+                            <span id='alive-status' style="color:red;">OFF</span>
+                        </div>	
+                    </div>
+                </div><br><br>
+
+                <div>
+                    <h3 align='center'>NoteAffect Monitoring Logs</h1>
+                </div>
+                <div class="table-responsive center-block" style="height:430px;background-color: ghostwhite;" align="center" id='report-table-div'>
+                    <table class="table table-bordered table-bordered table-striped" id="report-table">
+                        <thead style="background-color: lavender;">
+                            <tr>
+                                <th>Event Type</th>
+                                <th>Event Method</th>
+                                <th>Date and Time</th>
+                                <th>File Name</th>
+                                <th>Path</th>	
+                                <th>User</th>
+                                <th>Context Details</th>
+								<th>Detail</th>
+                            </tr>
+                        </thead>
+                        <tbody id="report-table-body"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>                        
+
+<script>
+    (function() {
+        'use strict';
+        
+        // Set the name of the "hidden" property and the change event for visibility
+        var hidden, visibilityChange;
+        if (typeof document.hidden !== "undefined") {
+            hidden = "hidden";
+            visibilityChange = "visibilitychange";
+        } else if (typeof document.mozHidden !== "undefined") { // Firefox up to v17
+            hidden = "mozHidden";
+            visibilityChange = "mozvisibilitychange";
+        } else if (typeof document.webkitHidden !== "undefined") { // Chrome up to v32, Android up to v4.4, Blackberry up to v10
+            hidden = "webkitHidden";
+            visibilityChange = "webkitvisibilitychange";
+        }
+
+        // If the page is hidden, pause the video;
+        // if the page is shown, play the video
+        function handleVisibilityChange() {
+            if (document[hidden]) {
+                notifyVisibilityChangeToNativeApp(false)
+            } else {
+                notifyVisibilityChangeToNativeApp(true)
+            }
+        }
+        
+        // Warn if the browser doesn't support addEventListener or the Page Visibility API
+        if (typeof document.addEventListener === "undefined" || typeof document[hidden] === "undefined") {
+            alert("This demo requires a modern browser that supports the Page Visibility API.");
+        } else {
+            // Handle page visibility change   
+            document.addEventListener(visibilityChange, handleVisibilityChange, false);
+        }
+    })();
+	
+    function notifyVisibilityChangeToNativeApp(flag){
+        console.log("notifyVisibilityChangeToNativeApp");
+        //constructPayload(flag);
+        // $.get("http://localhost:3000/setMonitorFlag?isMonitoring="+flag, function(data, status){
+        //     console.log(data);
+        //     document.getElementById("monitoring-status").style.color = 'green'
+        //     document.getElementById("monitoring-status").innerHTML= 'ON'
+
+        // }).fail(function() {
+        //     document.getElementById("monitoring-status").style.color = 'red'
+        //     document.getElementById("monitoring-status").innerHTML= 'OFF'
+        // });
+
+        $.ajax({
+            url: 'http://localhost:3393/setMonitoring',
+            type: 'POST',
+            dataType: 'json',
+			contentType : 'application/json',
+            crossDomain: true,
+            success: function (data) {
+                console.log(data);	
+                document.getElementById("monitoring-status").style.color = 'green'
+                document.getElementById("monitoring-status").innerHTML= 'ON'
+            },
+            fail: function(data){
+                console.log("error while post request")
+                document.getElementById("monitoring-status").style.color = 'red'
+                document.getElementById("monitoring-status").innerHTML= 'OFF'
+            },
+            data: JSON.stringify(constructPayload(flag))
+        });
+                
+        /*	var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+            //var monitorStatusObj = document.getElementById("monitoring-status");
+            if (this.readyState == 4 && this.status == 200) {
+            console.log(this.responseText);
+            document.getElementById("monitoring-status").style.color = 'green'
+            document.getElementById("monitoring-status").innerHTML= 'ON'
+            }else{
+            document.getElementById("monitoring-status").style.color = 'red'
+            document.getElementById("monitoring-status").innerHTML = 'OFF'
+            }
+        };
+            xhttp.open("GET", "http://localhost:3000/setMonitorFlag?isMonitoring="+flag, true);
+            xhttp.send();*/
+    };
+
+    // const tabIdentifier = Math.floor(Math.random() * (100000 - 1 + 1)) + 1;
+
+    function constructPayload(monitorFlag){
+        var payload = {};
+        var tabIdentifier = Math.floor(Math.random() * (100000 - 1 + 1)) + 1;
+        payload.isMonitoring = monitorFlag;
+        payload.id = tabIdentifier + '-aff1234-ac987';
+        payload.context = {};        
+        payload.context.userid = "userId"+tabIdentifier+"vr";
+        /*
+            To simulate the diff of Slide & userFile contexts, below if else block is present
+            In real case, this comes from the website so the if else block is not required
+        */
+        if (tabIdentifier % 2 == 0){
+            payload.context.contextDet = {
+                "seriesId"  : 7,
+                "resourceType": "Slide",
+                "item": {
+                    "lectureId" : 2,
+                    "slide"     : 3
+                }
+            }
+        }else{        
+            payload.context.contextDet = {
+                "seriesId"  : 7,
+                "resourceType": "UserFile",
+                "item": {
+                    "userFileId" : 1
+                }
+            }
+        }
+        console.log("payload == " + JSON.stringify(payload));
+        return payload;
+    };
+	
+	function invokeApp(){
+	var JWTToken = document.getElementById("JWTTokenInput").value.trim();
+	console.log('Token :: '  + JWTToken.length)
+	if(JWTToken.length == 0){
+		alert("Please Enter Valid JWT Token");
+	}else{
+		console.log("called invokeApp ");
+		var url = new URL("nasecapp://");
+		url.searchParams.append("allowedDomain", window.location.origin+'');
+		url.searchParams.append("token", JWTToken);
+		url.searchParams.append("series", '57');
+		url.searchParams.append("install", 'develop');
+		url.searchParams.append("clientVersion", '1.0');
+		url.searchParams.append("submitUrlHost", 'testing.noteaffect.com');
+		console.log("invokeApp URL "+ url);
+		window.location = url;
+		}
+	}
+	
+	function shutdownApp(){
+	
+	   $.ajax({
+            url: 'http://localhost:3393/shutdownApp',
+            type: 'POST',
+            crossDomain: true,
+            success: function (data) {
+                console.log("The security application has been shutdown.");	
+            },
+            fail: function(err){
+			console.error('Encountered error while shutting down the security application, Error : ' + err);
+            }
+        })
+	}
+</script>
