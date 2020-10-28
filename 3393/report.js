@@ -67,13 +67,13 @@ $(document).ready(function(){
                         var objDiv = document.getElementById("report-table-div");
                         objDiv.scrollTop = objDiv.scrollHeight;
             });                
-        });
+        });*/ 
         }).fail(function() {
             document.getElementById("alive-status").style.color = 'red'
             document.getElementById("alive-status").innerHTML= 'OFF'
             
             document.getElementById("monitoring-status").style.color = 'red'
             document.getElementById("monitoring-status").innerHTML= 'OFF'
-        });    */    
+        });       
     }, 5000);
 });
