@@ -75,5 +75,5 @@ $(document).ready(function(){
             document.getElementById("monitoring-status").style.color = 'red'
             document.getElementById("monitoring-status").innerHTML= 'OFF'
         });        
-    }, 1000);
+    }, 2000);
 });
