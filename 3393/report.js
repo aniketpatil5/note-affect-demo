@@ -43,7 +43,7 @@ $(document).ready(function(){
                 notifyVisibilityChangeToNativeApp(true)
                 isAppInvoked = 1
             }
-           /* $.get("http://localhost:3393/getCapturedData", function(data, status){
+            $.get("http://localhost:3393/getCapturedData", function(data, status){
             console.log('http://localhost:3393/getCapturedData called with status '+ status);
             eventList = data["events"];
             eventList.forEach(function(obj){
@@ -67,7 +67,7 @@ $(document).ready(function(){
                         var objDiv = document.getElementById("report-table-div");
                         objDiv.scrollTop = objDiv.scrollHeight;
             });                
-        });*/ 
+        });
         }).fail(function() {
             document.getElementById("alive-status").style.color = 'red'
             document.getElementById("alive-status").innerHTML= 'OFF'
@@ -75,5 +75,5 @@ $(document).ready(function(){
             document.getElementById("monitoring-status").style.color = 'red'
             document.getElementById("monitoring-status").innerHTML= 'OFF'
         });       
-    }, 5000);
+    }, 2000);
 });
