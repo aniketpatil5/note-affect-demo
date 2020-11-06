@@ -61,7 +61,7 @@
                                 <th>Path</th>	
                                 <th>User</th>
                                 <th>Context Details</th>
-								<th>Detail</th>
+				<th>Detail</th>
                             </tr>
                         </thead>
                         <tbody id="report-table-body"></tbody>
@@ -122,10 +122,10 @@
         // });
 
         $.ajax({
-            url: 'https://localhost:3393/setMonitoring',
+            url: 'http://localhost:3393/setMonitoring',
             type: 'POST',
             dataType: 'json',
-			contentType : 'application/json',
+	    contentType : 'application/json',
             crossDomain: true,
             success: function (data) {
                 console.log(data);	
@@ -212,7 +212,7 @@
 	function shutdownApp(){
 	
 	   $.ajax({
-            url: 'https://localhost:3393/shutdownApp',
+            url: 'http://localhost:3393/shutdownApp',
             type: 'POST',
             crossDomain: true,
             success: function (data) {
