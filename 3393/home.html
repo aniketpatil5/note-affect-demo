@@ -122,7 +122,7 @@
         // });
 
         $.ajax({
-            url: 'http://localhost:3393/setMonitoring',
+            url: 'https://localhost:3393/setMonitoring',
             type: 'POST',
             dataType: 'json',
 			contentType : 'application/json',
@@ -212,7 +212,7 @@
 	function shutdownApp(){
 	
 	   $.ajax({
-            url: 'http://localhost:3393/shutdownApp',
+            url: 'https://localhost:3393/shutdownApp',
             type: 'POST',
             crossDomain: true,
             success: function (data) {
