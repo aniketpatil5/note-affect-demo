@@ -92,7 +92,6 @@
         // If the page is hidden, pause the video;
         // if the page is shown, play the video
         function handleVisibilityChange() {
-            debugger;
             if (document[hidden]) {
                 notifyVisibilityChangeToNativeApp(false)
             } else {
@@ -123,7 +122,7 @@
         // });
 
         $.ajax({
-            url: 'http://localhost:3000/setMonitoring',
+            url: 'https://localhost:3393/setMonitoring',
             type: 'POST',
             dataType: 'json',
 			contentType : 'application/json',
@@ -162,7 +161,7 @@
     function constructPayload(monitorFlag){
         var payload = {};
         payload.isMonitoring = monitorFlag;
-        payload.id = tabIdentifier;
+        payload.id = tabIdentifier + '-aff1234-ac987';
         payload.context = {};        
         payload.context.userid = "userId"+tabIdentifier+"vr";
         /*
@@ -171,7 +170,7 @@
         */
         if (tabIdentifier % 2 == 0){
             payload.context.contextDet = {
-                "seriesId"  : 10,
+                "seriesId"  : 7,
                 "resourceType": "Slide",
                 "item": {
                     "lectureId" : 2,
@@ -180,7 +179,7 @@
             }
         }else{        
             payload.context.contextDet = {
-                "seriesId"  : 10,
+                "seriesId"  : 7,
                 "resourceType": "UserFile",
                 "item": {
                     "userFileId" : 1
@@ -195,15 +194,16 @@
 	var JWTToken = document.getElementById("JWTTokenInput").value.trim();
 	console.log('Token :: '  + JWTToken.length)
 	if(JWTToken.length == 0){
-			alert("Please Enter Valid JWT Token");
+		alert("Please Enter Valid JWT Token");
 	}else{
 		console.log("called invokeApp ");
 		var url = new URL("nasecapp://");
-		url.searchParams.append("allowed-domain", window.location.origin+'');
+		url.searchParams.append("allowedDomain", window.location.origin+'');
 		url.searchParams.append("token", JWTToken);
 		url.searchParams.append("series", '57');
 		url.searchParams.append("install", 'develop');
 		url.searchParams.append("clientVersion", '1.0');
+		url.searchParams.append("submitUrlHost", 'testing.noteaffect.com');
 		console.log("invokeApp URL "+ url);
 		window.location = url;
 		}
@@ -212,7 +212,7 @@
 	function shutdownApp(){
 	
 	   $.ajax({
-            url: 'http://localhost:3000/shutdownApp',
+            url: 'https://localhost:3393/shutdownApp',
             type: 'POST',
             crossDomain: true,
             success: function (data) {
