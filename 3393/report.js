@@ -8,7 +8,7 @@ $(document).ready(function(){
     let isAppInvoked = 0;
     let isErrorShown = false;
     setInterval(()=>{    
-        $.get("http://localhost:3393/ping", function(data, status){
+        $.get("http://127.0.0.1:3393/ping", function(data, status){
 			data = JSON.parse(data);				
 			console.log('Ping response : ' + JSON.stringify(data));
 			if(data.isError = true){
