@@ -8,7 +8,7 @@ $(document).ready(function(){
     let isAppInvoked = 0;
     let isErrorShown = false;
     setInterval(()=>{    
-        $.get("https://localhost:3393/ping", function(data, status){
+        $.get("http://localhost:3393/ping", function(data, status){
 			data = JSON.parse(data);				
 			console.log('Ping response : ' + JSON.stringify(data));
 			if(data.isError = true){
@@ -43,7 +43,7 @@ $(document).ready(function(){
                 notifyVisibilityChangeToNativeApp(true)
                 isAppInvoked = 1
             }
-           /* $.get("http://localhost:3393/getCapturedData", function(data, status){
+           $.get("http://localhost:3393/getCapturedData", function(data, status){
             console.log('http://localhost:3393/getCapturedData called with status '+ status);
             eventList = data["events"];
             eventList.forEach(function(obj){
@@ -66,8 +66,8 @@ $(document).ready(function(){
                         //to setup scroll to the bottom
                         var objDiv = document.getElementById("report-table-div");
                         objDiv.scrollTop = objDiv.scrollHeight;
-            });                
-        });*/
+            });
+        });
         }).fail(function() {
             document.getElementById("alive-status").style.color = 'red'
             document.getElementById("alive-status").innerHTML= 'OFF'
