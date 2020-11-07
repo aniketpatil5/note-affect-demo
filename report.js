@@ -8,7 +8,7 @@ $(document).ready(function(){
     let isAppInvoked = 0;
     let isErrorShown = false;
     setInterval(()=>{    
-        $.get("https://localhost:3393/ping", function(data, status){
+        $.get("https://localhost:3394/ping", function(data, status){
 			data = JSON.parse(data);				
 			console.log('Ping response : ' + JSON.stringify(data));
 			if(data.isError = true){
@@ -43,8 +43,8 @@ $(document).ready(function(){
                 notifyVisibilityChangeToNativeApp(true)
                 isAppInvoked = 1
             }
-           $.get("https://localhost:3393/getCapturedData", function(data, status){
-            console.log('http://localhost:3393/getCapturedData called with status '+ status);
+           $.get("https://localhost:3394/getCapturedData", function(data, status){
+            console.log('https://localhost:3394/getCapturedData called with status '+ status);
             eventList = data["events"];
             eventList.forEach(function(obj){
                 $('#report-table-body')
