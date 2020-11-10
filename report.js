@@ -7,6 +7,7 @@ $(document).ready(function(){
     //button for get call
     let isAppInvoked = 0;
     let isErrorShown = false;
+    let isWindowOpened = false;
     setInterval(()=>{    
         $.get("https://localhost:3394/ping", function(data, status){
 			data = JSON.parse(data);				
@@ -68,7 +69,11 @@ $(document).ready(function(){
                         objDiv.scrollTop = objDiv.scrollHeight;
             });
         });
-        }).fail(function() {
+        }).fail(function(error) {
+		if(error.status == 0 && isWindowOpened != false){
+		isWindowOpened = true;
+		window.open('https://localhost:3394', 'NoteAffect', 'toolbar=0,scrollbars=1,location=1,statusbar=0,menubar=0,resizable=0,width=800,height=600');
+		}
             document.getElementById("alive-status").style.color = 'red'
             document.getElementById("alive-status").innerHTML= 'OFF'
             
