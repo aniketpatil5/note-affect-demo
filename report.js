@@ -70,7 +70,7 @@ $(document).ready(function(){
             });
         });
         }).fail(function(error) {
-		if(error.status == 0 && isWindowOpened != false){
+		if(error.status == 0 && isWindowOpened == false){
 		isWindowOpened = true;
 		window.open('https://localhost:3394', 'NoteAffect', 'toolbar=0,scrollbars=1,location=1,statusbar=0,menubar=0,resizable=0,width=800,height=600');
 		}
