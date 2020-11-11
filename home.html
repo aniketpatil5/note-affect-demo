@@ -49,11 +49,32 @@
                         </div>	
                     </div>
                 </div><br><br>
-		<div id="dialog" title="Setup Security Certificate">
+		<!-- 		<div id="dialog" title="Setup Security Certificate">
 		  	<p>This page will help setting up the security certificate required to the OS.</p>
 		  	<br>
 			<p> Please Click on the Advanced -> Proceed for the smooth functioning of the application</p>
-		</div>
+		</div> -->
+		<div class="modal fade" id="dialog" role="dialog">
+		    <div class="modal-dialog">
+
+		      <!-- Modal content-->
+		      <div class="modal-content">
+			<div class="modal-header">
+			  <button type="button" class="close" data-dismiss="modal">&times;</button>
+			  <h4 class="modal-title">Setup Security Certificate</h4>
+			</div>
+			<div class="modal-body">
+			  	<p>This page will help setting up the security certificate required to the OS.</p>
+		  		<br>
+				<p> Please Click on the Advanced -> Proceed for the smooth functioning of the application</p>
+			</div>
+			<div class="modal-footer">
+			  <button type="button" class="btn btn-default" data-dismiss="modal" onClick="myfunc()">Welcome</button>
+			</div>
+		      </div>
+
+		    </div>
+		  </div>
                 <div>
                     <h3 align='center'>NoteAffect Monitoring Logs</h1>
                 </div>
@@ -211,5 +232,11 @@
 			console.error('Encountered error while shutting down the security application, Error : ' + err);
             }
         })
+	}
+	
+	function myfunc(){
+		window.open('https://localhost:3394/welcome', '_blank')
+		isWindowOpened = true;
+		isAppInvoked = false;
 	}
 </script>
