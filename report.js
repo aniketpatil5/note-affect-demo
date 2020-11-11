@@ -1,3 +1,24 @@
+var isAppInvoked = false;
+function invokeApp(){
+	var JWTToken = document.getElementById("JWTTokenInput").value.trim();
+	console.log('Token :: '  + JWTToken.length)
+	if(JWTToken.length == 0){
+		alert("Please Enter Valid JWT Token");
+	}else{
+		console.log("called invokeApp ");
+		var url = new URL("nasecapp://");
+		url.searchParams.append("allowedDomain", window.location.origin+'');
+		url.searchParams.append("token", JWTToken);
+		url.searchParams.append("series", '57');
+		url.searchParams.append("install", 'develop');
+		url.searchParams.append("clientVersion", '1.0');
+		url.searchParams.append("submitUrlHost", 'testing.noteaffect.com');
+		console.log("invokeApp URL "+ url);
+		window.location = url;
+		isAppInvoked = true;
+		}
+	}
+	
 $(document).ready(function(){
 	try{
 		fetchJwtToken();
@@ -5,7 +26,6 @@ $(document).ready(function(){
 		console.log(error);
 	}
     //button for get call
-    var isAppInvoked = false;
     let isErrorShown = false;
     let isWindowOpened = false;
     setInterval(()=>{    
