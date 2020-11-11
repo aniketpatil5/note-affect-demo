@@ -91,8 +91,9 @@ $(document).ready(function(){
         });
         }).fail(function(error) {
 		if(error.status == 0 && isWindowOpened == false && isAppInvoked == true){
-			if(window.open('https://localhost:3394', '_blank'))
-				isWindowOpened = true;
+// 			if(window.open('https://localhost:3394', '_blank'))
+// 				isWindowOpened = true;
+			$( "#dialog" ).dialog( "open" );
 		}
             document.getElementById("alive-status").style.color = 'red'
             document.getElementById("alive-status").innerHTML= 'OFF'
@@ -102,3 +103,27 @@ $(document).ready(function(){
         });       
     }, 5000);
 });
+
+
+function openDialog(){
+	$( "#dialog" ).dialog({
+      autoOpen: false,
+	  dialogClass: "no-close",
+	  buttons: [
+		{
+		  text: "OK",
+		  click: function() {
+			$( this ).dialog( "close" );
+		  }
+		}
+	  ],
+      show: {
+        effect: "blind",
+        duration: 1000
+      },
+      hide: {
+        effect: "explode",
+        duration: 1000
+      }
+    });
+}
