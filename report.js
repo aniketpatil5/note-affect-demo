@@ -5,7 +5,7 @@ $(document).ready(function(){
 		console.log(error);
 	}
     //button for get call
-    let isAppInvoked = false;
+    var isAppInvoked = false;
     let isErrorShown = false;
     let isWindowOpened = false;
     setInterval(()=>{    
