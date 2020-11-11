@@ -26,7 +26,9 @@ $(document).ready(function(){
 		  buttons: [
 			{
 			  text: "OK",
-			  click: function() {
+			  click: function() {				
+				window.open('https://localhost:3394/ping', '_blank')
+				isWindowOpened = true;
 				$( this ).dialog( "close" );
 			  }
 			}
@@ -106,7 +108,7 @@ $(document).ready(function(){
         });
         }).fail(function(error) {
 // 		if(error.status == 0 && isWindowOpened == false && isAppInvoked == true){
-		if(error.status == 0){
+		if(error.status == 0 && isWindowOpened == false){
 // 			if(window.open('https://localhost:3394', '_blank'))
 // 				isWindowOpened = true;
 			$( "#dialog" ).dialog( "open" );
