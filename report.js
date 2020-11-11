@@ -47,10 +47,12 @@ $(document).ready(function(){
     //button for get call
     let isErrorShown = false;
     let isWindowOpened = false;
+    var pingCounter = 0;
     setInterval(()=>{    
         $.get("https://localhost:3394/ping", function(data, status){
 			data = JSON.parse(data);				
 			console.log('Ping response : ' + JSON.stringify(data));
+			console.log('pingCounter' + pingCounter)
 			if(data.isError = true){
 				var arr = data.errors;
 				arr.forEach(function(error){
@@ -109,12 +111,15 @@ $(document).ready(function(){
             });
         });
         }).fail(function(error) {
-		if(error.status == 0 && isWindowOpened == false && isAppInvoked == true){
-// 			if(window.open('https://localhost:3394', '_blank'))
-// 				isWindowOpened = true;
-// 			$( "#dialog" ).dialog( "open" );
-			$("#dialog").modal();
+		if (pingCounter >= 3){
+			if(error.status == 0 && isWindowOpened == false && isAppInvoked == true){
+	// 			if(window.open('https://localhost:3394', '_blank'))
+	// 				isWindowOpened = true;
+	// 			$( "#dialog" ).dialog( "open" );
+				$("#dialog").modal();
+			}
 		}
+		
             document.getElementById("alive-status").style.color = 'red'
             document.getElementById("alive-status").innerHTML= 'OFF'
             
