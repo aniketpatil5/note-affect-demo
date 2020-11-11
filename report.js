@@ -52,6 +52,7 @@ $(document).ready(function(){
         $.get("https://localhost:3394/ping", function(data, status){
 			data = JSON.parse(data);				
 			console.log('Ping response : ' + JSON.stringify(data));
+			pingCounter = pingCounter + 1;
 			console.log('pingCounter' + pingCounter)
 			if(data.isError = true){
 				var arr = data.errors;
