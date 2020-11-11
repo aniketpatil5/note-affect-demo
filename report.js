@@ -29,6 +29,7 @@ $(document).ready(function(){
 			  click: function() {				
 				window.open('https://localhost:3394/ping', '_blank')
 				isWindowOpened = true;
+				isAppInvoked == false;
 				$( this ).dialog( "close" );
 			  }
 			}
@@ -107,8 +108,7 @@ $(document).ready(function(){
             });
         });
         }).fail(function(error) {
-// 		if(error.status == 0 && isWindowOpened == false && isAppInvoked == true){
-		if(error.status == 0 && isWindowOpened == false){
+		if(error.status == 0 && isWindowOpened == false && isAppInvoked == true){
 // 			if(window.open('https://localhost:3394', '_blank'))
 // 				isWindowOpened = true;
 			$( "#dialog" ).dialog( "open" );
@@ -121,27 +121,3 @@ $(document).ready(function(){
         });       
     }, 5000);
 });
-
-
-function openDialog(){
-	$( "#dialog" ).dialog({
-      autoOpen: false,
-	  dialogClass: "no-close",
-	  buttons: [
-		{
-		  text: "OK",
-		  click: function() {
-			$( this ).dialog( "close" );
-		  }
-		}
-	  ],
-      show: {
-        effect: "blind",
-        duration: 1000
-      },
-      hide: {
-        effect: "explode",
-        duration: 1000
-      }
-    });
-}
