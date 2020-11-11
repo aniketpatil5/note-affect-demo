@@ -19,12 +19,27 @@ function invokeApp(){
 		}
 	}
 	
-$(document).ready(function(){
-	try{
-		fetchJwtToken();
-	}catch(error){
-		console.log(error);
-	}
+$(document).ready(function(){	
+	$( "#dialog" ).dialog({
+	      autoOpen: false,
+		  dialogClass: "no-close",
+		  buttons: [
+			{
+			  text: "OK",
+			  click: function() {
+				$( this ).dialog( "close" );
+			  }
+			}
+		  ],
+	      show: {
+		effect: "blind",
+		duration: 1000
+	      },
+	      hide: {
+		effect: "explode",
+		duration: 1000
+	      }
+    	});
     //button for get call
     let isErrorShown = false;
     let isWindowOpened = false;
