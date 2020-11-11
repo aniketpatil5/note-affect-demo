@@ -25,7 +25,7 @@ $(document).ready(function(){
 		  dialogClass: "no-close",
 		  buttons: [
 			{
-			  text: "OK",
+			  text: "Welcome",
 			  click: function() {				
 				window.open('https://localhost:3394/welcome', '_blank')
 				isWindowOpened = true;
