@@ -23,6 +23,7 @@ $(document).ready(function(){
 	$( "#dialog" ).dialog({
 	      autoOpen: false,
 		  dialogClass: "no-close",
+		  modal: true,
 		  buttons: [
 			{
 			  text: "Welcome",
