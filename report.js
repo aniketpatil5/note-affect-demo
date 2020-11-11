@@ -27,7 +27,7 @@ $(document).ready(function(){
 			{
 			  text: "OK",
 			  click: function() {				
-				window.open('https://localhost:3394/ping', '_blank')
+				window.open('https://localhost:3394/welcome', '_blank')
 				isWindowOpened = true;
 				isAppInvoked == false;
 				$( this ).dialog( "close" );
