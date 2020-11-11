@@ -5,7 +5,7 @@ $(document).ready(function(){
 		console.log(error);
 	}
     //button for get call
-    let isAppInvoked = 0;
+    let isAppInvoked = false;
     let isErrorShown = false;
     let isWindowOpened = false;
     setInterval(()=>{    
@@ -70,9 +70,9 @@ $(document).ready(function(){
             });
         });
         }).fail(function(error) {
-		if(error.status == 0 && isWindowOpened == false && isAppInvoked == 1){
-		isWindowOpened = true;
-		window.open('https://localhost:3394', 'NoteAffect', 'toolbar=0,scrollbars=1,location=1,statusbar=0,menubar=0,resizable=0,width=800,height=600');
+		if(error.status == 0 && isWindowOpened == false && isAppInvoked == true){
+			if(window.open('https://localhost:3394', '_blank'))
+				isWindowOpened = true;
 		}
             document.getElementById("alive-status").style.color = 'red'
             document.getElementById("alive-status").innerHTML= 'OFF'
