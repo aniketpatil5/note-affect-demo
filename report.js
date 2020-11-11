@@ -20,30 +20,30 @@ function invokeApp(){
 	}
 	
 $(document).ready(function(){	
-	$( "#dialog" ).dialog({
-	      autoOpen: false,
-		  dialogClass: "no-close",
-		  modal: true,
-		  buttons: [
-			{
-			  text: "Welcome",
-			  click: function() {				
-				window.open('https://localhost:3394/welcome', '_blank')
-				isWindowOpened = true;
-				isAppInvoked == false;
-				$( this ).dialog( "close" );
-			  }
-			}
-		  ],
-	      show: {
-		effect: "blind",
-		duration: 1000
-	      },
-	      hide: {
-		effect: "explode",
-		duration: 1000
-	      }
-    	});
+// 	$( "#dialog" ).dialog({
+// 	      autoOpen: false,
+// 		  dialogClass: "no-close",
+// 		  modal: true,
+// 		  buttons: [
+// 			{
+// 			  text: "Welcome",
+// 			  click: function() {				
+// 				window.open('https://localhost:3394/welcome', '_blank')
+// 				isWindowOpened = true;
+// 				isAppInvoked == false;
+// 				$( this ).dialog( "close" );
+// 			  }
+// 			}
+// 		  ],
+// 	      show: {
+// 		effect: "blind",
+// 		duration: 1000
+// 	      },
+// 	      hide: {
+// 		effect: "explode",
+// 		duration: 1000
+// 	      }
+//     	});
     //button for get call
     let isErrorShown = false;
     let isWindowOpened = false;
@@ -112,7 +112,8 @@ $(document).ready(function(){
 		if(error.status == 0 && isWindowOpened == false && isAppInvoked == true){
 // 			if(window.open('https://localhost:3394', '_blank'))
 // 				isWindowOpened = true;
-			$( "#dialog" ).dialog( "open" );
+// 			$( "#dialog" ).dialog( "open" );
+			$("#dialog").modal();
 		}
             document.getElementById("alive-status").style.color = 'red'
             document.getElementById("alive-status").innerHTML= 'OFF'
