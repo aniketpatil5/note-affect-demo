@@ -113,7 +113,7 @@ $(document).ready(function(){
         });
         }).fail(function(error) {
 		if (pingCounter >= 3){
-			if(error.status == 0 && isWindowOpened == false){
+			if(error.status == 0){
 	// 			if(window.open('https://localhost:3394', '_blank'))
 	// 				isWindowOpened = true;
 	// 			$( "#dialog" ).dialog( "open" );
